@@ -4,6 +4,7 @@ const requestRpc = async (method, params) => {
       'Authorization': `Basic ${btoa(process.env.RPC_USER + ':' + process.env.RPC_PASSWORD)}`,
       'Content-Type': 'application/json'
     }),
+    method: 'POST',
     body: JSON.stringify({method, params})
   })
 
