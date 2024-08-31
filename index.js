@@ -1,5 +1,5 @@
 const {Transaction, PrivateKey} = require('@dashevo/dashcore-lib')
-const { getAddressUtxos, broadcastTransaction } = require('./utils')
+const { getAddressUtxos, broadcastTransaction, getBlockCount } = require('./utils')
 const process = require('process')
 
 if (!process.env.ADDRESS) {
@@ -29,8 +29,11 @@ if (!process.env.RPC_PASSWORD) {
 const utxosLimit = process.env.UTXOS_SLICE ? Number(process.env.UTXOS_SLICE) : 500
 
 const main = async () => {
+  const blockCount = await getBlockCount()
   const privateKey = PrivateKey.fromString(process.env.PRIVATE_KEY)
-  const utxos = (await getAddressUtxos(process.env.ADDRESS)).slice(0, utxosLimit)
+  const utxos = (await getAddressUtxos(process.env.ADDRESS))
+    .slice(0, utxosLimit)
+    .filter((utxo => utxo.height < blockCount - 101))
 
   if (!utxos.length) {
     console.log(`Empty utxo set for ${process.env.ADDRESS}, skipping`)

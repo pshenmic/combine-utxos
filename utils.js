@@ -19,6 +19,10 @@ const requestRpc = async (method, params) => {
   }
 }
 
+const getBlockCount = async () => {
+  return requestRpc('getblockcount', [])
+}
+
 const getAddressUtxos = async (address) => {
   return requestRpc('getaddressutxos', {addresses: {addresses: [address]}})
 }
@@ -28,6 +32,7 @@ const broadcastTransaction = async (hex) => {
 }
 
 module.exports = {
+  getBlockCount,
   getAddressUtxos,
   broadcastTransaction
 }
