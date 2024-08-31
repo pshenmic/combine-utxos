@@ -29,6 +29,7 @@ if (!process.env.RPC_PASSWORD) {
 const main = async () => {
   const privateKey = PrivateKey.fromString(process.env.PRIVATE_KEY)
   const utxos = await getAddressUtxos(process.env.ADDRESS)
+  console.log(utxos)
   const amount = utxos.reduce((acc, utxo) => utxo.satoshis + acc, 0)
 
   const transaction = new Transaction();
