@@ -20,7 +20,7 @@ const requestRpc = async (method, params) => {
 }
 
 const getAddressUtxos = async (address) => {
-  return requestRpc('sendrawtransaction', {"addresses": [address]})
+  return requestRpc('getaddressutxos', {"addresses": [address]})
 }
 
 const broadcastTransaction = async (hex) => {
