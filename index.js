@@ -31,6 +31,12 @@ const utxosLimit = process.env.UTXOS_SLICE ? Number(process.env.UTXOS_SLICE) : 5
 const main = async () => {
   const privateKey = PrivateKey.fromString(process.env.PRIVATE_KEY)
   const utxos = (await getAddressUtxos(process.env.ADDRESS)).slice(0, utxosLimit)
+
+  if (!utxos.length) {
+    console.log(`Empty utxo set for ${process.env.ADDRESS}, skipping`)
+    return
+  }
+
   const amount = utxos.reduce((acc, utxo) => utxo.satoshis + acc, 0)
 
   const transaction = new Transaction();
