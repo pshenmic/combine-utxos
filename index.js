@@ -37,6 +37,12 @@ const main = async () => {
 
   transaction.from(utxos)
   transaction.to(process.env.ADDRESS, amount)
+
+  const fee = transaction.getFee()
+
+  transaction.clearOutputs()
+  transaction.to(process.env.ADDRESS, amount - fee)
+
   transaction.sign(privateKey)
 
   const txid = await broadcastTransaction(transaction.toString())
