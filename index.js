@@ -26,9 +26,11 @@ if (!process.env.RPC_PASSWORD) {
   throw new Error("RPC_PASSWORD env must be set")
 }
 
+const utxosLimit = process.env.UTXOS_SLICE ? Number(process.env.UTXOS_SLICE) : 500
+
 const main = async () => {
   const privateKey = PrivateKey.fromString(process.env.PRIVATE_KEY)
-  const utxos = (await getAddressUtxos(process.env.ADDRESS)).slice(0, 500)
+  const utxos = (await getAddressUtxos(process.env.ADDRESS)).slice(0, utxosLimit)
   const amount = utxos.reduce((acc, utxo) => utxo.satoshis + acc, 0)
 
   const transaction = new Transaction();
