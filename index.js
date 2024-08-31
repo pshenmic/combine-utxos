@@ -42,6 +42,7 @@ const main = async () => {
 
   transaction.clearOutputs()
   transaction.to(process.env.ADDRESS, amount - fee)
+  transaction.fee(fee)
 
   transaction.sign(privateKey)
 
