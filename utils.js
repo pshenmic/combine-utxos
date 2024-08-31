@@ -9,9 +9,7 @@ const requestRpc = async (method, params) => {
   })
 
   if (response.status === 200) {
-    const {result} = response.json()
-
-    return result
+    return response.json()
   } else {
     const text = await response.text()
 
@@ -20,7 +18,9 @@ const requestRpc = async (method, params) => {
 }
 
 const getAddressUtxos = async (address) => {
-  return requestRpc('getaddressutxos', {addresses: {addresses: [address]}})
+  const utxos = await requestRpc('getaddressutxos', {addresses: {addresses: [address]}})
+  console.log(utxos)
+  return utxos
 }
 
 const broadcastTransaction = async (hex) => {
