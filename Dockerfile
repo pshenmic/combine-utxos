@@ -5,6 +5,7 @@ WORKDIR /app
 COPY package-lock.json /app
 COPY package.json /app
 COPY utils.js /app
+COPY index.js /app
 
 RUN npm ci
 
