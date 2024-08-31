@@ -6,6 +6,6 @@ COPY package-lock.json /app
 COPY package.json /app
 COPY utils.js /app
 
-RUN npm install
+RUN npm ci
 
 CMD ["node", "index.js"]
