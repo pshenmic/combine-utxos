@@ -46,6 +46,8 @@ const main = async () => {
 
   transaction.sign(privateKey)
 
+  console.log(fee, amount, amount - fee, Buffer.from(transaction.toString(), 'hex').length)
+
   const txid = await broadcastTransaction(transaction.toString())
 
   console.log('Successfully broadcasted transaction ' + txid)
