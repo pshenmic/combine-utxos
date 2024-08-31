@@ -11,6 +11,7 @@ const requestRpc = async (method, params) => {
   if (response.status === 200) {
     const { result } = response.json()
 
+    console.log('result', result)
     return result
   } else {
     const text = await response.text()
