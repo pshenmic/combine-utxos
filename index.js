@@ -38,6 +38,10 @@ const main = async () => {
   transaction.sign(privateKey)
 
   console.log(transaction)
+
+  if (process.env.CRON_SECONDS) {
+    setTimeout(main, Number(process.env.CRON_SECONDS) * 1000 );
+  }
 }
 
 main().catch(console.error)
