@@ -1,8 +1,9 @@
 const requestRpc = async (method, params) => {
-  const response = await fetch(`http://${process.env.RPC_USER}:${process.env.RPC_PASSWORD}@${process.env.RPC_HOST}:${process.env.RPC_PORT}`, {
-    headers: {
-      'content-type' : 'application/json'
-    },
+  const response = await fetch(`http://${process.env.RPC_HOST}:${process.env.RPC_PORT}`, {
+    headers: new Headers({
+      'Authorization': `Basic ${btoa(process.env.RPC_USER + ':' + process.env.RPC_PASSWORD)}`,
+      'Content-Type': 'application/json'
+    }),
     body: JSON.stringify({method, params})
   })
 
