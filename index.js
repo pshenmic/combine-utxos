@@ -1,5 +1,5 @@
 const {Transaction, PrivateKey} = require('@dashevo/dashcore-lib')
-const { getAddressUtxos } = require('./utils')
+const { getAddressUtxos, broadcastTransaction } = require('./utils')
 const process = require('process')
 
 if (!process.env.ADDRESS) {
@@ -37,7 +37,9 @@ const main = async () => {
   transaction.to(process.env.ADDRESS, amount)
   transaction.sign(privateKey)
 
-  console.log(transaction)
+  const txid = await broadcastTransaction(transaction.toString())
+
+  console.log('Successfully broadcasted transaction ' + txid)
 
   if (process.env.CRON_SECONDS) {
     setTimeout(main, Number(process.env.CRON_SECONDS) * 1000 );
