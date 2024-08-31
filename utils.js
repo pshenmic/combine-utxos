@@ -1,5 +1,5 @@
 const requestRpc = async (method, params) => {
-  const response = await fetch(`http://${RPC_USER}:${RPC_PASSWORD}@${RPC_HOST}:${RPC_PORT}`, {
+  const response = await fetch(`http://${process.env.RPC_USER}:${process.env.RPC_PASSWORD}@${process.env.RPC_HOST}:${process.env.RPC_PORT}`, {
     headers: {
       'content-type' : 'application/json'
     },
@@ -18,7 +18,7 @@ const requestRpc = async (method, params) => {
 }
 
 const getAddressUtxos = async (address) => {
-  return requestRpc('sendrawtransaction', {"addresses": [process.env.ADDRESS]})
+  return requestRpc('sendrawtransaction', {"addresses": [address]})
 }
 
 const broadcastTransaction = async (hex) => {
