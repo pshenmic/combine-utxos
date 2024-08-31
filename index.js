@@ -38,7 +38,9 @@ const main = async () => {
   transaction.from(utxos)
   transaction.to(process.env.ADDRESS, amount)
 
-  const fee = transaction.getFee()
+  const size = Buffer.from(transaction.toString(), 'hex').length
+  const duffPerByte = 5;
+  const fee = size * duffPerByte
 
   transaction.clearOutputs()
   transaction.to(process.env.ADDRESS, amount - fee)
