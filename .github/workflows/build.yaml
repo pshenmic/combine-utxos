@@ -15,6 +15,7 @@ jobs:
           node-version: 20
       - run: npm ci
   publish:
+    needs: [build]
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
