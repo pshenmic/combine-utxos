@@ -8,9 +8,7 @@ const requestRpc = async (method, params) => {
     body: JSON.stringify({method, params})
   })
 
-  console.log(JSON.stringify({method, params}))
-
-  if(response.status === 200) {
+  if (response.status === 200) {
     const {result} = response.json()
 
     return result
@@ -22,7 +20,7 @@ const requestRpc = async (method, params) => {
 }
 
 const getAddressUtxos = async (address) => {
-  return requestRpc('getaddressutxos', {addresses: [address]})
+  return requestRpc('getaddressutxos', {addresses: {addresses: [address]}})
 }
 
 const broadcastTransaction = async (hex) => {
